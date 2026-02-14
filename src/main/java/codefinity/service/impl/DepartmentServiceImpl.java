@@ -1,21 +1,38 @@
 package codefinity.service.impl;
 
+import codefinity.dao.DepartmentDao;
+import codefinity.dao.impl.DepartmentDaoImpl;
 import codefinity.model.Department;
 import codefinity.service.DepartmentService;
 
+
 public class DepartmentServiceImpl implements DepartmentService {
+
+   private  final   DepartmentDao departmentDao = new DepartmentDaoImpl();
+
     @Override
     public Department add(Department department) {
-        return null;
+
+        return departmentDao.add(department);
+
     }
 
     @Override
     public Department getById(int id) {
-        return null;
+        return departmentDao.getById(id);
     }
 
     @Override
     public String getDepartmentNameById(int id) {
-        return null;
+
+        Department department = departmentDao.getById(id);
+        String departmentName= department.getName();
+        if(departmentName!=null){
+            return departmentName;
+        } else {
+            throw  new NullPointerException("The department's name is null, " +
+                    "or there is no name for an department with ID " + id);
+        }
+
     }
 }
